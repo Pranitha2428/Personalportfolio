@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up - SDC Project Portal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="nav-container" style="justify-content: center;">
+      <a href="index.html" class="logo">SDC Portfolio System</a>
+    </div>
+  </header>
+
+  <div class="auth-wrapper">
+    <form class="auth-card" id="signupForm">
+      <h2>Create Account</h2>
+      <p>Register to access User or Admin module.</p>
+
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" required placeholder="Patla Poorna Pranitha Reddy" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" required placeholder="student@example.com" />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required placeholder="••••••••" />
+      </div>
+
+      <div class="form-group">
+        <label for="role">Select Account Module</label>
+        <select id="role">
+          <option value="user">User Module</option>
+          <option value="admin">Admin Module</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Register Account</button>
+
+      <div class="auth-footer">
+        Already registered? <a href="index.html">Log In / Go to Portal</a>
+      </div>
+    </form>
+  </div>
+
+  <footer>
+    &copy; 2026 SDC Project Review-1. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const role = document.getElementById('role').value;
+
+      const usersDB = JSON.parse(localStorage.getItem('usersDB') || '[]');
+
+      const existingUser = usersDB.find(u => u.email === email);
+      if (existingUser) {
+        alert('An account with this email already exists. Redirecting to Portal...');
+        window.location.href = 'index.html';
+        return;
+      }
+
+      const newUser = { name, email, password, role };
+      usersDB.push(newUser);
+      localStorage.setItem('usersDB', JSON.stringify(usersDB));
+
+      alert('Registration successful! Redirecting to application...');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

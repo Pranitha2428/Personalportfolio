@@ -1,169 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>MyPortfolio</title>
-
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SDC Portfolio System | Interactive Portal</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-    <!-- ================= LOGIN PAGE ================= -->
+  <!-- Top Navigation Bar -->
+  <header>
+    <div class="nav-container">
+      <a class="logo" id="navLogo" onclick="openPortal()">SDC Portfolio System</a>
+      <div class="nav-buttons">
+        <button class="btn btn-outline" id="navSwitchBtn" onclick="openPortal()">Switch Mode / Portal</button>
+        <a href="signup.html" class="btn btn-primary" id="navSignupBtn">Register / Sign Up</a>
+      </div>
+    </div>
+  </header>
 
-    <div id="loginPage" class="page">
+  <main>
+    <!-- 1. PORTAL SELECTION SCREEN (Opened by Default) -->
+    <div id="portalScreen">
+      <h1>Select Access Module</h1>
+      <p>Choose an operational module below to run and test the interactive application.</p>
 
-        <div class="login-card">
-
-            <div class="logo">
-                MyPortfolio
-            </div>
-
-            <h1>Welcome Back</h1>
-
-            <p class="subtitle">
-                Login to your portfolio
-            </p>
-
-            <form id="loginForm">
-
-                <label>Email</label>
-
-                <input
-                    type="email"
-                    id="loginEmail"
-                    placeholder="Enter your email"
-                    required
-                >
-
-                <label>Password</label>
-
-                <input
-                    type="password"
-                    id="loginPassword"
-                    placeholder="Enter your password"
-                    required
-                >
-
-                <label>Login As</label>
-
-                <select id="loginRole">
-
-                    <option value="user">
-                        User
-                    </option>
-
-                    <option value="admin">
-                        Admin
-                    </option>
-
-                </select>
-
-                <button type="submit">
-                    Login
-                </button>
-
-                <p id="loginMessage"></p>
-
-            </form>
-
-            <p class="bottom-text">
-
-                Don't have an account?
-
-                <a href="#" onclick="showSignup()">
-                    Sign Up
-                </a>
-
-            </p>
-
+      <div class="portal-cards">
+        <!-- User Module Card -->
+        <div class="portal-card" id="cardSelectUser" onclick="openUserPage()">
+          <h3 style="color: #2563eb;">User Module</h3>
+          <p>View student bios, search other student profiles, filter skills, explore project showcases, and submit contact messages.</p>
+          <button class="btn btn-primary" style="width: 100%; pointer-events: none;">Enter User Module</button>
         </div>
 
-    </div>
-
-
-    <!-- ================= SIGNUP PAGE ================= -->
-
-    <div id="signupPage" class="page hidden">
-
-        <div class="login-card">
-
-            <div class="logo">
-                MyPortfolio
-            </div>
-
-            <h1>Create Account</h1>
-
-            <p class="subtitle">
-                Register as a user
-            </p>
-
-            <form id="signupForm">
-
-                <label>Full Name</label>
-
-                <input
-                    type="text"
-                    id="signupName"
-                    placeholder="Enter your name"
-                    required
-                >
-
-                <label>Email</label>
-
-                <input
-                    type="email"
-                    id="signupEmail"
-                    placeholder="Enter your email"
-                    required
-                >
-
-                <label>Password</label>
-
-                <input
-                    type="password"
-                    id="signupPassword"
-                    placeholder="Create password"
-                    required
-                >
-
-                <label>Confirm Password</label>
-
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    placeholder="Confirm password"
-                    required
-                >
-
-                <button type="submit">
-                    Create Account
-                </button>
-
-                <p id="signupMessage"></p>
-
-            </form>
-
-            <p class="bottom-text">
-
-                Already have an account?
-
-                <a href="#" onclick="showLogin()">
-                    Login
-                </a>
-
-            </p>
-
+        <!-- Admin Module Card -->
+        <div class="portal-card" id="cardSelectAdmin" onclick="openAdminPage()">
+          <h3 style="color: #10b981;">Admin Module</h3>
+          <p>Access admin panel to edit bio details, add/remove projects, manage technical skills, and read inquiries.</p>
+          <button class="btn btn-green" style="width: 100%; pointer-events: none;">Enter Admin Module</button>
         </div>
-
+      </div>
     </div>
 
+    <!-- 2. USER MODULE PAGE -->
+    <div id="userPage" style="display: none;">
+      <section class="section" style="border-left: 4px solid #2563eb;">
+        <div class="section-title">
+          <span>User Module | Student Portfolio</span>
+          <span style="font-size: 0.75rem; color: #64748b; font-weight: normal;">Active Mode: <strong>Visitor / User</strong></span>
+        </div>
+        <p style="font-size: 0.85rem; color: #475569;">
+          Welcome to the Student Portfolio View. Search student profiles, explore technical skills, view project entries, or submit a message to the administrator.
+        </p>
+      </section>
 
-    <!-- ================= ADMIN DASHBOARD ================= -->
+      <!-- Problem Statement Overview -->
+      <section class="section">
+        <h2 class="section-title">Problem Statement & System Overview</h2>
+        <p style="font-size: 0.85rem; color: #334155;">
+          <strong>System Objective:</strong> Developed to provide an interactive platform for B.Tech students to demonstrate practical engineering concepts, digital logic visualizers, and hardware prototypes with bi-directional data flow between User and Admin modules.
+        </p>
+      </section>
 
-    <div id="adminPage" class="hidden dashboard">
+      <!-- Search Profiles Section -->
+      <section class="section">
+        <h2 class="section-title">Search Student Profiles</h2>
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <input 
+            type="text" 
+            id="profileSearchInput" 
+            placeholder="Search by student name, role, or skill (e.g., Pranitha, Python, Digital Logic)..." 
+          />
+        </div>
+        <div class="grid" id="userProfilesGrid">
+          <!-- Populated dynamically via script.js -->
+        </div>
+      </section>
 
-        <nav class="navbar">
+      <!-- Active Profile Bio -->
+      <section class="section">
+        <h2 class="section-title">About Me (Portfolio Owner)</h2>
+        <p id="bioText">
+          2nd-year B.Tech Student interested in software development, digital system design, and hardware prototyping.
+        </p>
+      </section>
+
+      <!-- Technical Skills List -->
+      <section class="section">
+        <h2 class="section-title">Technical Skills</h2>
+        <div id="userSkillsList">
+          <!-- Populated dynamically via script.js -->
+        </div>
+      </section>
+
+      <!-- Project Showcase -->
+      <section class="section">
+        <h2 class="section-title">Project Showcase</h2>
+        <div class="filter-container" id="projectFilters">
+          <button class="btn btn-primary" data-filter="all">All Projects</button>
+          <button class="btn btn-outline" data-filter="Hardware">Hardware</button>
+          <button class="btn btn-outline" data-filter="Software">Software</button>
+          <button class="btn btn-outline" data-filter="Embedded">Embedded</button>
+        </div>
+        <div class="grid" id="projectGrid">
+          <!-- Populated dynamically via script.js -->
+        </div>
+      </section>
+
+      <!-- Contact Form -->
+      <section class="section">
+        <h2 class="section-title">Send Message / Inquiry to Admin</h2>
+        <form id="userMsgForm">
+          <div class="form-group">
+            <label for="uName">Your Full Name</label>
+            <input type="text" id="uName" required placeholder="Patla Poorna Pranitha Reddy" />
+          </div>
+          <div class="form-group">
+            <label for="uMsg">Message / Feedback</label>
+            <textarea id="uMsg" rows="2" required placeholder="Type your query or feedback here..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" id="btnSendMsg">Send Message</button>
+        </form>
+      </section>
+    </div>
+
+    <!-- 3. ADMIN MODULE PAGE -->
+    <div id="adminPage" style="display: none;">
+      <section class="section" style="border-left: 4px solid #10b981;">
+        <div class="section-title">
+          <span>Admin Management Panel</span>
+          <span style="font-size: 0.75rem; color: #64748b; font-weight: normal;">Active Mode: <strong>Administrator (Unlocked)</strong></span>
+        </div>
+        <p style="font-size: 0.85rem; color: #475569;">
+          Control panel for editing bio details, adding or removing skills and project entries, and viewing incoming messages.
+        </p>
+      </section>
+
+      <!-- Edit Profile Bio -->
+      <section class="section">
+        <h2 class="section-title">1. Update Profile Bio</h2>
+        <div class="form-group">
+          <label for="adminBioIn">Edit Bio Content</label>
+          <textarea id="adminBioIn" rows="2"></textarea>
+          <button id="saveBioBtn" class="btn btn-green" style="width: fit-content; margin-top: 0.3rem;">Save Bio Updates</button>
+        </div>
+      </section>
+
+      <!-- Manage Technical Skills -->
+      <section class="section">
+        <h2 class="section-title">2. Manage Technical Skills</h2>
+        <form id="addSkillForm" style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+          <input type="text" id="newSkillInput" placeholder="New Skill Name (e.g. Python, Digital Logic)" style="flex: 1; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 5px;" required />
+          <button type="submit" class="btn btn-green">Add Skill</button>
+        </form>
+        <div id="adminSkillsList">
+          <!-- Populated dynamically via script.js -->
+        </div>
+      </section>
+
+      <!-- Add New Project Entry -->
+      <section class="section">
+        <h2 class="section-title">3. Add New Project Entry</h2>
+        <form id="addProjForm">
+          <div class="form-group"><input type="text" id="pTitle" placeholder="Project Title" required /></div>
+          <div class="form-group"><input type="text" id="pDesc" placeholder="Project Description" required /></div>
+          <div class="form-group"><input type="text" id="pTags" placeholder="Tags (comma-separated, e.g. Hardware, Software, Embedded)" required /></div>
+          <button type="submit" class="btn btn-green">Publish Project</button>
+        </form>
+      </section>
+
+      <!-- Received Inquiries Inbox -->
+      <section class="section">
+        <div class="section-title">
+          <span>4. User Inquiry Messages</span>
+          <button id="btnClearMsgs" class="btn btn-danger">Clear All Messages</button>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Sender</th><th>Message</th><th>Action</th></tr>
+          </thead>
+          <tbody id="msgTableBody">
+            <!-- Populated dynamically via script.js -->
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 SDC Project Review-1 | Pure HTML, CSS & JavaScript Implementation
+  </footer>
+
+  <!-- Script MUST be loaded at the bottom -->
+  <script src="script.js"></script>
+</body>
+</html>
